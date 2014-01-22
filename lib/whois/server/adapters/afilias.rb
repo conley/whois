@@ -25,19 +25,23 @@ module Whois
         # @param  [String] string
         # @return [void]
         #
-        def request(string)
-          response = query_the_socket(string, host)
-          buffer_append response, host
+        def request(string, record)
+          #response = query_the_socket(string, host)
+          #buffer_append response, host
+          # JAC replace above two lines to just use given record
+          buffer_append record, host
 
-          if options[:referral] != false && referral = extract_referral(response)
-            response = query_the_socket(string, referral)
-            buffer_append(response, referral)
-          end
+          # JAC just ignore the below?
+          #if options[:referral] != false && referral = extract_referral(response)
+          #  response = query_the_socket(string, referral)
+          #  buffer_append(response, referral)
+          #end
         end
 
 
         private
 
+        # JAC never use
         def extract_referral(response)
           if response =~ /Domain Name:/
             response.slice(/Whois Server:(\S+)/, 1)

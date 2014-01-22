@@ -12,13 +12,13 @@ module Whois
     module Adapters
 
       #
-      # = Verisign Adapter
+      # = Afilias Adapter
       #
-      # Provides ability to query Verisign WHOIS interfaces.
+      # Provides ability to query Afilias WHOIS interfaces.
       #
-      class Verisign < Base
+      class Afilias < Base
 
-        # Executes a WHOIS query to the Verisign WHOIS interface,
+        # Executes a WHOIS query to the Afilias WHOIS interface,
         # resolving any intermediate referral,
         # and appends the response to the client buffer.
         #
@@ -26,7 +26,7 @@ module Whois
         # @return [void]
         #
         def request(string)
-          #response = query_the_socket("=#{string}", host)
+          response = query_the_socket(string, host)
           buffer_append response, host
 
           if options[:referral] != false && referral = extract_referral(response)
@@ -40,10 +40,7 @@ module Whois
 
         def extract_referral(response)
           if response =~ /Domain Name:/
-            server = response.scan(/Whois Server: (.+?)$/).flatten.last
-            server.strip! if server != nil
-            server = nil  if server == "not defined"
-            server
+            response.slice(/Whois Server:(\S+)/, 1)
           end
         end
 

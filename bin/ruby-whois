@@ -9,25 +9,26 @@ require 'whois'
 options = {}
 OptionParser.new do |opts|
   opts.banner     = "Whois: an intelligent pure Ruby Whois client"
-  opts.define_head  "Usage: ruby-whois [options] object"
+  opts.define_head  "Usage: ruby-whois [options] object < record"
   opts.separator    ""
   opts.separator    "Examples:"
-  opts.separator    " ruby-whois ruby-lang.com"
-  opts.separator    " ruby-whois 213.149.247.64"
+  opts.separator    " ruby-whois ruby-lang.com <<< \"record...\""
+  opts.separator    " ruby-whois 213.149.247.64 <<< \"record...\""
   opts.separator    ""
   opts.separator    "Options:"
 
-  opts.on("-t", "--timeout [SECONDS]", Integer, "set the timeout") do |seconds|
-    options[:timeout] = seconds
-  end
+  #opts.on("-t", "--timeout [SECONDS]", Integer, "set the timeout") do |seconds|
+  #  options[:timeout] = seconds
+  #end
 
-  opts.on("-h", "--host [HOST]", String, "connect to server HOST") do |host|
-    options[:host] = host
-  end
+  #opts.on("-h", "--host [HOST]", String, "connect to server HOST") do |host|
+  #  options[:host] = host
+  #end
 
-  opts.on("--[no-]referral", "skip referral queries") do |boolean|
-    options[:referral] = boolean
-  end
+  #opts.on("--[no-]referral", "skip referral queries") do |boolean|
+  #  options[:referral] = boolean
+  #end
+  options[:referral] = true
 
   opts.on_tail("--help", "show this help and exit") do
     puts opts

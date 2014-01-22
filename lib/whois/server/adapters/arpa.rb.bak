@@ -13,10 +13,8 @@ module Whois
 
       class Arpa < Base
 
-        def request(string, record)
-          #Server.guess(inaddr_to_ip(string)).query(string)
-          # JAC replace above with
-          Server.guess(inaddr_to_ip)
+        def request(string)
+          Server.guess(inaddr_to_ip(string)).query(string)
         end
 
 

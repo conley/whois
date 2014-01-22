@@ -76,8 +76,7 @@ module Whois
     # Queries the right WHOIS server for <tt>object</tt>
     # and returns the response from the server.
     #
-    # @param  [#to_s] object The string (domain) to be sent as query parameter.
-    # @param  [#to_s] record The full whois record, as a string.
+    # @param  [#to_s] object The string to be sent as query parameter.
     # @return [Whois::Record] The object containing the WHOIS response.
     #
     # @raise  [Timeout::Error]
@@ -87,12 +86,12 @@ module Whois
     #   client.query("google.com")
     #   # => #<Whois::Record>
     #
-    def query(object, recordfile)
+    def query(object)
       string = object.to_s.downcase
       Timeout::timeout(timeout) do
         @server = Server.guess(string)
         @server.configure(settings)
-        @server.lookup(string, record)
+        @server.lookup(string)
       end
     end
 
